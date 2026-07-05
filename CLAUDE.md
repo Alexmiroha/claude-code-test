@@ -1,58 +1,31 @@
-\# CLAUDE.md
+# CLAUDE.md
 
+## Project
 
+PromoHunter is a Vite + React + TypeScript affiliate deals website.
 
-\## Project
+## Commands
 
+- Install: `npm ci`
+- Dev: `npm run dev`
+- Build: `npm run build`
+- Preview: `npm run preview`
+- Lint: `npm run lint`
 
+## Workflow rules
 
-This is a React + TypeScript + Vite app deployed to GitHub Pages.
+- Before major edits, show a short plan.
+- Make minimal, focused changes.
+- Do not modify GitHub Actions unless explicitly asked.
+- Keep Vite GitHub Pages base config intact.
+- After code edits, run `npm run build`.
+- Prefer simple, readable React + TypeScript.
+- Do not invent backend functionality.
+- Do not add unnecessary dependencies.
 
+## Product direction
 
-
-\## Commands
-
-
-
-\- Install dependencies: `npm ci`
-
-\- Start dev server: `npm run dev`
-
-\- Build production app: `npm run build`
-
-\- Preview production build: `npm run preview`
-
-\- Lint: `npm run lint`
-
-
-
-\## Workflow rules
-
-
-
-\- Before editing files, explain the plan.
-
-\- Make minimal changes.
-
-\- Do not modify deployment workflow unless explicitly asked.
-
-\- Do not change unrelated files.
-
-\- After code edits, run `npm run build`.
-
-\- Prefer simple, readable React + TypeScript code.
-
-\- Keep explanations concise and practical.
-
-\- If unsure, ask before changing architecture.
-
-
-
-\## Deployment
-
-
-
-The app is deployed through GitHub Actions to GitHub Pages.
-
-Vite `base` must match the repository name: `/claude-code-test/`.
-
+Brand: PromoHunter.
+Concept: affiliate deals website with a promo-hunting / target-lock hero animation.
+Languages: Polish, English, Ukrainian.
+Features: product cards, search, category filtering, favorites in localStorage, theme switcher, language switcher.
