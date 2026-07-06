@@ -134,15 +134,10 @@ const dictionary = {
   },
 
   // Sections
-  featuredTitle: {
-    pl: 'Najlepsze okazje dnia',
-    en: 'Best deals today',
-    uk: 'Найкращі пропозиції дня',
-  },
-  featuredSubtitle: {
-    pl: 'Ręcznie wybrane promocje o największych rabatach.',
-    en: 'Hand-picked promotions with the biggest discounts.',
-    uk: 'Відібрані вручну акції з найбільшими знижками.',
+  hotPicksTitle: {
+    pl: 'Gorące okazje z katalogu',
+    en: 'Hot picks from the catalog',
+    uk: 'Гарячі пропозиції з каталогу',
   },
   categoriesTitle: {
     pl: 'Przeglądaj według kategorii',
@@ -231,6 +226,58 @@ const dictionary = {
     uk: 'Показати ще',
   },
 
+  // Product details modal
+  productDetails: {
+    pl: 'Szczegóły produktu',
+    en: 'Product details',
+    uk: 'Деталі товару',
+  },
+  categoryLabel: {
+    pl: 'Kategoria',
+    en: 'Category',
+    uk: 'Категорія',
+  },
+  storeLabel: {
+    pl: 'Sklep',
+    en: 'Store',
+    uk: 'Магазин',
+  },
+  ratingLabel: {
+    pl: 'Ocena',
+    en: 'Rating',
+    uk: 'Рейтинг',
+  },
+  salesLabel: {
+    pl: 'Sprzedaż',
+    en: 'Sales',
+    uk: 'Продажі',
+  },
+  productIdLabel: {
+    pl: 'ID produktu',
+    en: 'Product ID',
+    uk: 'ID товару',
+  },
+  openDeal: {
+    pl: 'Otwórz ofertę',
+    en: 'Open deal',
+    uk: 'Відкрити пропозицію',
+  },
+  closeDetails: {
+    pl: 'Zamknij szczegóły produktu',
+    en: 'Close product details',
+    uk: 'Закрити деталі товару',
+  },
+  prevProduct: {
+    pl: 'Poprzedni produkt',
+    en: 'Previous product',
+    uk: 'Попередній товар',
+  },
+  nextProduct: {
+    pl: 'Następny produkt',
+    en: 'Next product',
+    uk: 'Наступний товар',
+  },
+
   // Product card
   addFavorite: {
     pl: 'Dodaj do ulubionych',
@@ -255,44 +302,19 @@ const dictionary = {
 
   // Guides
   guidesTitle: {
-    pl: 'Poradniki łowcy promocji',
+    pl: 'Poradniki łowcy okazji',
     en: 'Deal hunter guides',
-    uk: 'Поради мисливця за знижками',
+    uk: 'Гайди мисливця за знижками',
   },
   guidesSubtitle: {
-    pl: 'Krótkie przewodniki, dzięki którym zapłacisz mniej.',
+    pl: 'Krótkie poradniki, które pomagają płacić mniej.',
     en: 'Short guides that help you pay less.',
-    uk: 'Короткі гайди, які допоможуть платити менше.',
+    uk: 'Короткі поради, які допомагають платити менше.',
   },
-  guide1Title: {
-    pl: 'Jak sprawdzić, czy promocja jest prawdziwa',
-    en: 'How to check if a discount is real',
-    uk: 'Як перевірити, чи знижка справжня',
-  },
-  guide1Text: {
-    pl: 'Historia cen, porównywarki i trzy sygnały ostrzegawcze sztucznych przecen.',
-    en: 'Price history, comparison tools and three red flags of fake markdowns.',
-    uk: 'Історія цін, порівняння та три ознаки фальшивих знижок.',
-  },
-  guide2Title: {
-    pl: 'Najlepsze dni na zakupy w elektronice',
-    en: 'Best days to buy electronics',
-    uk: 'Найкращі дні для купівлі електроніки',
-  },
-  guide2Text: {
-    pl: 'Kiedy sklepy naprawdę obniżają ceny — kalendarz wyprzedaży na cały rok.',
-    en: 'When stores actually cut prices — a sale calendar for the whole year.',
-    uk: 'Коли магазини справді знижують ціни — календар розпродажів на рік.',
-  },
-  guide3Title: {
-    pl: 'Kupony i cashback: podwójne oszczędzanie',
-    en: 'Coupons and cashback: double savings',
-    uk: 'Купони та кешбек: подвійна економія',
-  },
-  guide3Text: {
-    pl: 'Jak łączyć kody rabatowe z cashbackiem, żeby zejść z ceny jeszcze niżej.',
-    en: 'How to stack promo codes with cashback to push the price even lower.',
-    uk: 'Як поєднувати промокоди з кешбеком, щоб платити ще менше.',
+  closeArticle: {
+    pl: 'Zamknij artykuł',
+    en: 'Close article',
+    uk: 'Закрити статтю',
   },
   readMore: {
     pl: 'Czytaj więcej',

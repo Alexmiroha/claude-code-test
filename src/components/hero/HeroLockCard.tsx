@@ -1,14 +1,29 @@
+import { useEffect, useRef, useState } from 'react'
+import type { KeyboardEvent, MouseEvent } from 'react'
 import { products } from '../../data/products'
+import { catalogProducts } from '../../data/catalog/catalogAdapter'
 import { useLanguage } from '../../i18n/useLanguage'
 import { formatPrice } from '../../utils/format'
 import type { Product, Store } from '../../types/product'
 
 /**
- * Ordered list of deals the target can lock onto; the first entry is the
- * active one. Structured so this can become a carousel of best deals
- * sliding through the bracket frame later.
+ * Deals the target cycles through: the public catalog's best real discounts,
+ * strongest first (discount, then sales volume, then lower price).
  */
-const heroDeals: Product[] = [products.find((p) => p.id === 'p21')!]
+const heroDeals: Product[] = [...catalogProducts]
+  .filter((p) => p.discountPercent !== undefined)
+  .sort(
+    (a, b) =>
+      b.discountPercent! - a.discountPercent! ||
+      (b.salesCount ?? 0) - (a.salesCount ?? 0) ||
+      a.price - b.price,
+  )
+  .slice(0, 6)
+
+const ROTATE_MS = 7000
+const SWAP_MS = 350
+
+type SwapPhase = 'idle' | 'out' | 'in'
 
 const storeBadge: Record<Store, { mark: string; className: string }> = {
   AliExpress: { mark: 'A', className: 'ico-aliexpress' },
@@ -156,19 +171,41 @@ function EarbudsArt() {
 interface FavoriteProps {
   isFavorite: (id: string) => boolean
   onToggleFavorite: (id: string) => void
+  onOpenDetails: (id: string) => void
 }
 
 interface DealCardProps extends FavoriteProps {
   product: Product
+  phase: SwapPhase
 }
 
-function DealCard({ product, isFavorite, onToggleFavorite }: DealCardProps) {
+function DealCard({
+  product,
+  phase,
+  isFavorite,
+  onToggleFavorite,
+  onOpenDetails,
+}: DealCardProps) {
   const { language, t, tr } = useLanguage()
   const favorite = isFavorite(product.id)
   const badge = storeBadge[product.store]
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      onOpenDetails(product.id)
+    }
+  }
+
   return (
-    <article className="lock-card">
+    <article
+      className={`lock-card ${phase === 'out' ? 'is-out' : ''} ${phase === 'in' ? 'is-in' : ''}`}
+      role="button"
+      tabIndex={0}
+      onClick={() => onOpenDetails(product.id)}
+      onKeyDown={handleKeyDown}
+      aria-label={`${t('productDetails')}: ${tr(product.title)}`}
+    >
       <span className="lock-chip">
         LOCKED ON
         <svg viewBox="0 0 14 12" width="13" height="11" aria-hidden="true">
@@ -185,7 +222,10 @@ function DealCard({ product, isFavorite, onToggleFavorite }: DealCardProps) {
 
       <button
         className={`lock-fav ${favorite ? 'active' : ''}`}
-        onClick={() => onToggleFavorite(product.id)}
+        onClick={(event: MouseEvent) => {
+          event.stopPropagation()
+          onToggleFavorite(product.id)
+        }}
         aria-pressed={favorite}
         aria-label={favorite ? t('removeFavorite') : t('addFavorite')}
       >
@@ -197,7 +237,10 @@ function DealCard({ product, isFavorite, onToggleFavorite }: DealCardProps) {
       </div>
 
       <h3 className="lock-title">{tr(product.title)}</h3>
-      {product.variant && <p className="lock-variant">{tr(product.variant)}</p>}
+      {/* Always rendered so the card height doesn't jump between deals */}
+      <p className="lock-variant">
+        {product.variant ? tr(product.variant) : ' '}
+      </p>
 
       <div className="lock-meta">
         <span className="lock-store">
@@ -229,30 +272,82 @@ function DealCard({ product, isFavorite, onToggleFavorite }: DealCardProps) {
   )
 }
 
-export function HeroLockCard({ isFavorite, onToggleFavorite }: FavoriteProps) {
-  const activeDeal = heroDeals[0]
+export function HeroLockCard({
+  isFavorite,
+  onToggleFavorite,
+  onOpenDetails,
+}: FavoriteProps) {
+  const [dealIndex, setDealIndex] = useState(0)
+  const [phase, setPhase] = useState<SwapPhase>('idle')
+  const pausedRef = useRef(false)
+
+  useEffect(() => {
+    if (heroDeals.length < 2) return
+
+    const timer = window.setInterval(() => {
+      if (pausedRef.current || document.hidden) return
+      setPhase('out')
+    }, ROTATE_MS)
+
+    return () => window.clearInterval(timer)
+  }, [])
+
+  useEffect(() => {
+    if (phase === 'out') {
+      const id = window.setTimeout(() => {
+        setDealIndex((index) => (index + 1) % heroDeals.length)
+        setPhase('in')
+      }, SWAP_MS)
+      return () => window.clearTimeout(id)
+    }
+    if (phase === 'in') {
+      /* Let one frame paint at the off-screen-right position, then ease in. */
+      const id = window.setTimeout(() => setPhase('idle'), 30)
+      return () => window.clearTimeout(id)
+    }
+  }, [phase])
+
+  const activeDeal = heroDeals[dealIndex]
+  if (!activeDeal) return null
 
   return (
     <div className="lock-stage">
       <HudBackdrop />
 
-      {storeHighlights.map((highlight) => (
-        <span key={highlight.store} className={`float-pill ${highlight.className}`}>
-          <span className="fp-value">-{highlight.discount}%</span>
-          <span className="fp-store">{highlight.store}</span>
-        </span>
-      ))}
-
-      <div className="lock-frame">
+      <div
+        className="lock-frame"
+        onPointerEnter={() => {
+          pausedRef.current = true
+        }}
+        onPointerLeave={() => {
+          pausedRef.current = false
+        }}
+        onFocus={() => {
+          pausedRef.current = true
+        }}
+        onBlur={() => {
+          pausedRef.current = false
+        }}
+      >
         <span className="lock-bracket b-tl" />
         <span className="lock-bracket b-tr" />
         <span className="lock-bracket b-bl" />
         <span className="lock-bracket b-br" />
 
+        {/* Anchored to the frame so they can never drift onto the card */}
+        {storeHighlights.map((highlight) => (
+          <span key={highlight.store} className={`float-pill ${highlight.className}`}>
+            <span className="fp-value">-{highlight.discount}%</span>
+            <span className="fp-store">{highlight.store}</span>
+          </span>
+        ))}
+
         <DealCard
           product={activeDeal}
+          phase={phase}
           isFavorite={isFavorite}
           onToggleFavorite={onToggleFavorite}
+          onOpenDetails={onOpenDetails}
         />
       </div>
     </div>

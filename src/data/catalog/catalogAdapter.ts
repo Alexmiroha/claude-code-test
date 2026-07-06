@@ -276,3 +276,18 @@ export const featuredProducts: Product[] =
             (b.salesCount ?? 0) - (a.salesCount ?? 0),
         )
         .slice(0, 6)
+
+/** Ticker picks: featured deals first, topped up to 10 with the next-best discounts. */
+const hotPicks = [...featuredProducts]
+for (const product of [...catalogProducts]
+  .filter((p) => p.discountPercent !== undefined)
+  .sort(
+    (a, b) =>
+      b.discountPercent! - a.discountPercent! ||
+      (b.salesCount ?? 0) - (a.salesCount ?? 0),
+  )) {
+  if (hotPicks.length >= 10) break
+  if (!hotPicks.some((p) => p.id === product.id)) hotPicks.push(product)
+}
+
+export const hotPickProducts: Product[] = hotPicks

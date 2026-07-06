@@ -20,6 +20,13 @@ const sortLabelKeys: Record<SortMode, TranslationKey> = {
   bestDiscount: 'sortBestDiscount',
 }
 
+const sortIcons: Record<SortMode, string> = {
+  bestOffer: '🏆',
+  priceAsc: '📉',
+  priceDesc: '📈',
+  bestDiscount: '🏷️',
+}
+
 interface CategoryFilterProps {
   selectedCategoryId: string | null
   onSelectCategory: (categoryId: string | null) => void
@@ -132,6 +139,7 @@ export function CategoryFilter({
                     onClick={() => onSelectSort(mode)}
                     aria-pressed={active}
                   >
+                    <span aria-hidden="true">{sortIcons[mode]}</span>{' '}
                     {t(sortLabelKeys[mode])}
                   </button>
                 )

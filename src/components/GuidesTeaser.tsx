@@ -1,15 +1,22 @@
+import { useState } from 'react'
+import type { KeyboardEvent } from 'react'
+import { guidePosts } from '../data/guides'
+import type { GuidePost } from '../data/guides'
+import { GuideModal } from './GuideModal'
 import { useLanguage } from '../i18n/useLanguage'
-import type { TranslationKey } from '../i18n/translations'
 import './GuidesTeaser.css'
 
-const guides: { icon: string; title: TranslationKey; text: TranslationKey }[] = [
-  { icon: '🔍', title: 'guide1Title', text: 'guide1Text' },
-  { icon: '📅', title: 'guide2Title', text: 'guide2Text' },
-  { icon: '💸', title: 'guide3Title', text: 'guide3Text' },
-]
-
 export function GuidesTeaser() {
-  const { t } = useLanguage()
+  const { t, tr } = useLanguage()
+  const [openGuide, setOpenGuide] = useState<GuidePost | null>(null)
+
+  const openOnKeyDown =
+    (guide: GuidePost) => (event: KeyboardEvent<HTMLElement>) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        setOpenGuide(guide)
+      }
+    }
 
   return (
     <section className="section" id="guides">
@@ -19,18 +26,30 @@ export function GuidesTeaser() {
           <p className="section-subtitle">{t('guidesSubtitle')}</p>
         </div>
         <div className="guides-grid">
-          {guides.map((guide) => (
-            <article className="guide-card" key={guide.title}>
+          {guidePosts.map((guide) => (
+            <article
+              className="guide-card"
+              key={guide.id}
+              role="button"
+              tabIndex={0}
+              onClick={() => setOpenGuide(guide)}
+              onKeyDown={openOnKeyDown(guide)}
+              aria-label={tr(guide.cardTitle)}
+            >
               <span className="guide-icon" aria-hidden="true">
                 {guide.icon}
               </span>
-              <h3>{t(guide.title)}</h3>
-              <p>{t(guide.text)}</p>
+              <h3>{tr(guide.cardTitle)}</h3>
+              <p>{tr(guide.cardDescription)}</p>
               <span className="guide-more">{t('readMore')} →</span>
             </article>
           ))}
         </div>
       </div>
+
+      {openGuide && (
+        <GuideModal guide={openGuide} onClose={() => setOpenGuide(null)} />
+      )}
     </section>
   )
 }

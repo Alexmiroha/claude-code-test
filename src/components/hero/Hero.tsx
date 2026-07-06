@@ -59,9 +59,10 @@ const valueBlocks = [
 interface HeroProps {
   isFavorite: (id: string) => boolean
   onToggleFavorite: (id: string) => void
+  onOpenDetails: (id: string) => void
 }
 
-export function Hero({ isFavorite, onToggleFavorite }: HeroProps) {
+export function Hero({ isFavorite, onToggleFavorite, onOpenDetails }: HeroProps) {
   const { t } = useLanguage()
 
   return (
@@ -103,6 +104,7 @@ export function Hero({ isFavorite, onToggleFavorite }: HeroProps) {
             <HeroLockCard
               isFavorite={isFavorite}
               onToggleFavorite={onToggleFavorite}
+              onOpenDetails={onOpenDetails}
             />
           </div>
         </div>

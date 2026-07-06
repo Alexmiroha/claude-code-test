@@ -4,7 +4,9 @@ import { Footer } from './components/layout/Footer'
 import { Hero } from './components/hero/Hero'
 import { StatsBar } from './components/StatsBar'
 import { CategoryFilter } from './components/categories/CategoryFilter'
-import { AllDeals, FeaturedDeals } from './components/products/ProductGrid'
+import { AllDeals } from './components/products/ProductGrid'
+import { HotPicksTicker } from './components/HotPicksTicker'
+import { ProductDetailsModal } from './components/products/ProductDetailsModal'
 import { GuidesTeaser } from './components/GuidesTeaser'
 import { LanguageProvider } from './i18n/LanguageContext'
 import { useLanguage } from './i18n/useLanguage'
@@ -66,6 +68,16 @@ function AppContent() {
     setVisibleCount(INITIAL_PRODUCT_LIMIT)
   }
 
+  /* Header ♥: enabling the filter also jumps to the filtered grid;
+     a second click just switches the filter off without scrolling. */
+  const showFavoritesFromHeader = () => {
+    const enabling = !showFavoritesOnly
+    toggleFavoritesOnly()
+    if (enabling) {
+      document.getElementById('all-deals')?.scrollIntoView()
+    }
+  }
+
   const hasActiveFilters =
     searchQuery.trim() !== '' ||
     selectedCategoryId !== null ||
@@ -123,6 +135,25 @@ function AppContent() {
   const visibleProducts = sortedProducts.slice(0, visibleCount)
   const hasMoreProducts = visibleCount < sortedProducts.length
 
+  /* Details modal: navigation walks the full filtered+sorted list, so the
+     arrows browse everything eligible, not just what load-more revealed. */
+  const [detailsProductId, setDetailsProductId] = useState<string | null>(null)
+  const detailsIndex = detailsProductId
+    ? sortedProducts.findIndex((p) => p.id === detailsProductId)
+    : -1
+  const detailsProduct =
+    detailsIndex >= 0
+      ? sortedProducts[detailsIndex]
+      : (catalogProducts.find((p) => p.id === detailsProductId) ?? null)
+  const canNavigateDetails = detailsIndex >= 0 && sortedProducts.length > 1
+
+  const showDetailsByOffset = (offset: number) => {
+    if (!canNavigateDetails) return
+    const nextIndex =
+      (detailsIndex + offset + sortedProducts.length) % sortedProducts.length
+    setDetailsProductId(sortedProducts[nextIndex].id)
+  }
+
   return (
     <>
       <Header
@@ -130,17 +161,18 @@ function AppContent() {
         onSearchChange={handleSearchChange}
         favoritesCount={favoriteIds.length}
         showFavoritesOnly={showFavoritesOnly}
-        onToggleFavoritesOnly={toggleFavoritesOnly}
+        onToggleFavoritesOnly={showFavoritesFromHeader}
         theme={theme}
         onToggleTheme={toggleTheme}
       />
       <main>
-        <Hero isFavorite={isFavorite} onToggleFavorite={toggleFavorite} />
-        <StatsBar />
-        <FeaturedDeals
+        <Hero
           isFavorite={isFavorite}
           onToggleFavorite={toggleFavorite}
+          onOpenDetails={setDetailsProductId}
         />
+        <StatsBar />
+        <HotPicksTicker onOpenDetails={setDetailsProductId} />
         <CategoryFilter
           selectedCategoryId={selectedCategoryId}
           onSelectCategory={handleSelectCategory}
@@ -160,10 +192,20 @@ function AppContent() {
           onClearFilters={clearFilters}
           isFavorite={isFavorite}
           onToggleFavorite={toggleFavorite}
+          onOpenDetails={setDetailsProductId}
         />
         <GuidesTeaser />
       </main>
       <Footer />
+      {detailsProduct && (
+        <ProductDetailsModal
+          product={detailsProduct}
+          canNavigate={canNavigateDetails}
+          onClose={() => setDetailsProductId(null)}
+          onPrevious={() => showDetailsByOffset(-1)}
+          onNext={() => showDetailsByOffset(1)}
+        />
+      )}
     </>
   )
 }

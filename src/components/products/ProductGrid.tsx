@@ -1,4 +1,3 @@
-import { featuredProducts } from '../../data/catalog/catalogAdapter'
 import { useLanguage } from '../../i18n/useLanguage'
 import { ProductCard } from './ProductCard'
 import type { Product } from '../../types/product'
@@ -7,31 +6,7 @@ import './ProductGrid.css'
 interface FavoriteProps {
   isFavorite: (id: string) => boolean
   onToggleFavorite: (id: string) => void
-}
-
-export function FeaturedDeals({ isFavorite, onToggleFavorite }: FavoriteProps) {
-  const { t } = useLanguage()
-
-  return (
-    <section className="section" id="deals">
-      <div className="container">
-        <div className="section-head">
-          <h2 className="section-title">{t('featuredTitle')}</h2>
-          <p className="section-subtitle">{t('featuredSubtitle')}</p>
-        </div>
-        <div className="product-grid">
-          {featuredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              isFavorite={isFavorite(product.id)}
-              onToggleFavorite={onToggleFavorite}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  )
+  onOpenDetails: (id: string) => void
 }
 
 interface AllDealsProps extends FavoriteProps {
@@ -56,6 +31,7 @@ export function AllDeals({
   onClearFilters,
   isFavorite,
   onToggleFavorite,
+  onOpenDetails,
 }: AllDealsProps) {
   const { t } = useLanguage()
 
@@ -91,6 +67,7 @@ export function AllDeals({
                   product={product}
                   isFavorite={isFavorite(product.id)}
                   onToggleFavorite={onToggleFavorite}
+                  onOpenDetails={onOpenDetails}
                 />
               ))}
             </div>

@@ -1,29 +1,42 @@
+import type { KeyboardEvent, MouseEvent } from 'react'
 import { catalogCategories } from '../../data/catalog/catalogAdapter'
 import { useLanguage } from '../../i18n/useLanguage'
-import { formatPrice } from '../../utils/format'
-import type { Language, Product } from '../../types/product'
+import { displayPrice } from '../../utils/format'
+import type { Product } from '../../types/product'
 import './ProductCard.css'
-
-/** Imported prices carry grosze; curated demo prices are whole złoty. */
-const displayPrice = (value: number, language: Language) =>
-  formatPrice(value, language, Number.isInteger(value) ? 0 : 2)
 
 interface ProductCardProps {
   product: Product
   isFavorite: boolean
   onToggleFavorite: (id: string) => void
+  onOpenDetails: (id: string) => void
 }
 
 export function ProductCard({
   product,
   isFavorite,
   onToggleFavorite,
+  onOpenDetails,
 }: ProductCardProps) {
   const { language, t, tr } = useLanguage()
   const category = catalogCategories.find((c) => c.id === product.categoryId)
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      onOpenDetails(product.id)
+    }
+  }
+
   return (
-    <article className="product-card">
+    <article
+      className="product-card"
+      role="button"
+      tabIndex={0}
+      onClick={() => onOpenDetails(product.id)}
+      onKeyDown={handleKeyDown}
+      aria-label={`${t('productDetails')}: ${tr(product.title)}`}
+    >
       <div className="product-media" data-category={product.categoryId}>
         {product.image ? (
           <img
@@ -45,7 +58,10 @@ export function ProductCard({
         )}
         <button
           className={`product-fav ${isFavorite ? 'active' : ''}`}
-          onClick={() => onToggleFavorite(product.id)}
+          onClick={(event: MouseEvent) => {
+            event.stopPropagation()
+            onToggleFavorite(product.id)
+          }}
           aria-pressed={isFavorite}
           aria-label={isFavorite ? t('removeFavorite') : t('addFavorite')}
           title={isFavorite ? t('removeFavorite') : t('addFavorite')}
@@ -89,6 +105,7 @@ export function ProductCard({
             href={product.affiliateUrl}
             target="_blank"
             rel="sponsored noopener noreferrer"
+            onClick={(event: MouseEvent) => event.stopPropagation()}
           >
             {t('goToStore')} →
           </a>
