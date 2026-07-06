@@ -1,0 +1,202 @@
+/* PromoHunter global styles: reset, theme variables, typography, shared shells. */
+
+:root {
+  /* Dark theme (default) */
+  --bg: #0b0d12;
+  --bg-raised: #11141c;
+  --card: #151926;
+  --card-hover: #1a1f2e;
+  --border: #232a3a;
+  --border-strong: #2f384d;
+  --text: #9aa3b5;
+  --text-strong: #eef1f7;
+  --text-dim: #6b7488;
+
+  --accent: #ff8c1a;
+  --accent-strong: #ffa940;
+  --accent-contrast: #14100a;
+  --accent-soft: rgba(255, 140, 26, 0.12);
+  --accent-glow: rgba(255, 140, 26, 0.35);
+  --deal: #ff4d2e;
+  --deal-soft: rgba(255, 77, 46, 0.14);
+  --success: #3ddc84;
+
+  --shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 12px 32px -12px rgba(0, 0, 0, 0.5);
+
+  --sans:
+    'Segoe UI Variable Display', 'Segoe UI', system-ui, Roboto, sans-serif;
+  --mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  --radius: 14px;
+  --radius-sm: 8px;
+
+  color-scheme: dark;
+  color: var(--text);
+  background: var(--bg);
+  font: 16px/1.55 var(--sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root[data-theme='light'] {
+  --bg: #f7f6f3;
+  --bg-raised: #ffffff;
+  --card: #ffffff;
+  --card-hover: #fdf9f2;
+  --border: #e5e1d8;
+  --border-strong: #d4cfc2;
+  --text: #5d5a52;
+  --text-strong: #191612;
+  --text-dim: #8d897f;
+
+  --accent: #e07000;
+  --accent-strong: #c96300;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(224, 112, 0, 0.1);
+  --accent-glow: rgba(224, 112, 0, 0.25);
+  --deal: #e03616;
+  --deal-soft: rgba(224, 54, 22, 0.1);
+  --success: #1d9e5f;
+
+  --shadow:
+    0 1px 2px rgba(30, 25, 15, 0.06),
+    0 12px 28px -14px rgba(30, 25, 15, 0.18);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--text-strong);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+input {
+  font: inherit;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* Shared layout shells */
+
+.container {
+  width: min(1160px, 100% - 2.5rem);
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: 56px;
+}
+
+.section-head {
+  margin-bottom: 28px;
+}
+
+.section-title {
+  font-size: clamp(24px, 3.2vw, 32px);
+}
+
+.section-subtitle {
+  margin-top: 6px;
+  color: var(--text-dim);
+  max-width: 56ch;
+}
+
+/* Shared button styles */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  box-shadow: 0 0 0 0 var(--accent-glow);
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+  box-shadow: 0 0 24px 0 var(--accent-glow);
+}
+
+.btn-ghost {
+  border: 1px solid var(--border-strong);
+  color: var(--text-strong);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
