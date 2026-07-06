@@ -154,6 +154,46 @@ const dictionary = {
     en: 'All',
     uk: 'Усі',
   },
+  storesTitle: {
+    pl: 'Sklepy',
+    en: 'Stores',
+    uk: 'Магазини',
+  },
+  allStores: {
+    pl: 'Wszystkie',
+    en: 'All',
+    uk: 'Усі',
+  },
+  clearFilters: {
+    pl: 'Wyczyść filtry',
+    en: 'Clear filters',
+    uk: 'Очистити фільтри',
+  },
+  sortTitle: {
+    pl: 'Sortuj według',
+    en: 'Sort by',
+    uk: 'Сортувати за',
+  },
+  sortBestOffer: {
+    pl: 'Najlepsza okazja',
+    en: 'Best offer',
+    uk: 'Найкраща пропозиція',
+  },
+  sortLowestPrice: {
+    pl: 'Najniższa cena',
+    en: 'Lowest price',
+    uk: 'Найнижча ціна',
+  },
+  sortHighestPrice: {
+    pl: 'Najwyższa cena',
+    en: 'Highest price',
+    uk: 'Найвища ціна',
+  },
+  sortBestDiscount: {
+    pl: 'Największy rabat',
+    en: 'Best discount',
+    uk: 'Найбільша знижка',
+  },
   allDealsTitle: {
     pl: 'Wszystkie okazje',
     en: 'All deals',
@@ -170,19 +210,25 @@ const dictionary = {
     uk: 'Нічого не знайдено',
   },
   emptySubtitle: {
-    pl: 'Zmień frazę wyszukiwania lub wybierz inną kategorię.',
-    en: 'Try a different search phrase or pick another category.',
-    uk: 'Змініть пошуковий запит або виберіть іншу категорію.',
+    pl: 'Zmień frazę wyszukiwania lub dobierz inne filtry kategorii i sklepu.',
+    en: 'Try a different search phrase or adjust the category and store filters.',
+    uk: 'Змініть пошуковий запит або підберіть інші фільтри категорії та магазину.',
   },
   emptyFavorites: {
     pl: 'Nie masz jeszcze ulubionych. Kliknij ♥ na karcie produktu, aby zapisać okazję.',
     en: 'No favorites yet. Tap ♥ on a product card to save a deal.',
     uk: 'Поки немає улюблених. Натисніть ♥ на картці товару, щоб зберегти знижку.',
   },
-  resultsCount: {
-    pl: 'znalezionych okazji',
-    en: 'deals found',
-    uk: 'знайдених пропозицій',
+  /** Placeholders {visible} and {total} are replaced at render time. */
+  showingProducts: {
+    pl: 'Pokazujesz {visible} z {total} produktów',
+    en: 'Showing {visible} of {total} products',
+    uk: 'Показано {visible} з {total} товарів',
+  },
+  loadMore: {
+    pl: 'Pokaż więcej',
+    en: 'Load more',
+    uk: 'Показати ще',
   },
 
   // Product card

@@ -1,17 +1,21 @@
-import { products } from '../data/products'
-import { categories } from '../data/categories'
+import {
+  catalogProducts,
+  catalogCategories,
+} from '../data/catalog/catalogAdapter'
 import { useLanguage } from '../i18n/useLanguage'
 import './StatsBar.css'
 
-const maxDiscount = Math.max(...products.map((p) => p.discountPercent ?? 0))
-const storeCount = new Set(products.map((p) => p.store)).size
+const maxDiscount = Math.max(
+  ...catalogProducts.map((p) => p.discountPercent ?? 0),
+)
+const storeCount = new Set(catalogProducts.map((p) => p.store)).size
 
 export function StatsBar() {
   const { t } = useLanguage()
 
   const stats = [
-    { value: `${products.length}+`, label: t('statsProducts') },
-    { value: String(categories.length), label: t('statsCategories') },
+    { value: `${catalogProducts.length}+`, label: t('statsProducts') },
+    { value: String(catalogCategories.length), label: t('statsCategories') },
     { value: `-${maxDiscount}%`, label: t('statsMaxDiscount') },
     { value: String(storeCount), label: t('statsStores') },
   ]

@@ -1,8 +1,12 @@
-import { categories } from '../../data/categories'
+import { catalogCategories } from '../../data/catalog/catalogAdapter'
 import { useLanguage } from '../../i18n/useLanguage'
 import { formatPrice } from '../../utils/format'
-import type { Product } from '../../types/product'
+import type { Language, Product } from '../../types/product'
 import './ProductCard.css'
+
+/** Imported prices carry grosze; curated demo prices are whole złoty. */
+const displayPrice = (value: number, language: Language) =>
+  formatPrice(value, language, Number.isInteger(value) ? 0 : 2)
 
 interface ProductCardProps {
   product: Product
@@ -16,13 +20,18 @@ export function ProductCard({
   onToggleFavorite,
 }: ProductCardProps) {
   const { language, t, tr } = useLanguage()
-  const category = categories.find((c) => c.id === product.categoryId)
+  const category = catalogCategories.find((c) => c.id === product.categoryId)
 
   return (
     <article className="product-card">
       <div className="product-media" data-category={product.categoryId}>
         {product.image ? (
-          <img src={product.image} alt="" loading="lazy" />
+          <img
+            src={product.image}
+            alt=""
+            loading="lazy"
+            referrerPolicy="no-referrer"
+          />
         ) : (
           <span className="product-media-icon" aria-hidden="true">
             {category?.icon}
@@ -54,20 +63,24 @@ export function ProductCard({
         </div>
 
         <h3 className="product-title">{tr(product.title)}</h3>
-        <p className="product-description">{tr(product.description)}</p>
+        {product.description && (
+          <p className="product-description">{tr(product.description)}</p>
+        )}
 
-        <div className="product-rating" aria-label={`${product.rating}/5`}>
-          <span aria-hidden="true">★</span> {product.rating.toFixed(1)}
-        </div>
+        {product.rating !== undefined && (
+          <div className="product-rating" aria-label={`${product.rating}/5`}>
+            <span aria-hidden="true">★</span> {product.rating.toFixed(1)}
+          </div>
+        )}
 
         <div className="product-footer">
           <div className="product-prices">
             <span className="product-price">
-              {formatPrice(product.price, language)}
+              {displayPrice(product.price, language)}
             </span>
             {product.oldPrice && (
               <s className="product-old-price">
-                {formatPrice(product.oldPrice, language)}
+                {displayPrice(product.oldPrice, language)}
               </s>
             )}
           </div>

@@ -1,5 +1,10 @@
 import type { Product } from '../types/product'
 
+/**
+ * Curated demo products — internal only. The public catalog comes from
+ * src/data/catalog/catalogAdapter.ts; the only entry surfaced publicly is
+ * the hero deal (p21). The rest power the hero store-discount pills.
+ */
 export const products: Product[] = [
   {
     id: 'p01',
@@ -419,7 +424,7 @@ export const products: Product[] = [
       uk: 'Внутрішньоканальні TWS-навушники з ANC, кейсом із бездротовою зарядкою та Bluetooth 5.4.',
     },
     store: 'Media Expert',
-    categoryId: 'accessories',
+    categoryId: 'electronics',
     image: '',
     price: 199,
     oldPrice: 439,

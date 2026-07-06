@@ -218,10 +218,18 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 138%;
+  width: 276%;
+  /* opt out of the global img/svg { max-width: 100% } reset — this is a
+     decorative backdrop meant to overflow its stage */
+  max-width: none;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   pointer-events: none;
+}
+
+/* keep the HUD line weight delicate while the geometry scales up */
+.hud-backdrop :is(circle, path, rect) {
+  vector-effect: non-scaling-stroke;
 }
 
 .hud-slow-spin {

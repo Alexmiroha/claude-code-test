@@ -1,4 +1,4 @@
-import { products } from '../../data/products'
+import { featuredProducts } from '../../data/catalog/catalogAdapter'
 import { useLanguage } from '../../i18n/useLanguage'
 import { ProductCard } from './ProductCard'
 import type { Product } from '../../types/product'
@@ -8,8 +8,6 @@ interface FavoriteProps {
   isFavorite: (id: string) => boolean
   onToggleFavorite: (id: string) => void
 }
-
-const featuredProducts = products.filter((p) => p.featured)
 
 export function FeaturedDeals({ isFavorite, onToggleFavorite }: FavoriteProps) {
   const { t } = useLanguage()
@@ -37,15 +35,25 @@ export function FeaturedDeals({ isFavorite, onToggleFavorite }: FavoriteProps) {
 }
 
 interface AllDealsProps extends FavoriteProps {
-  filteredProducts: Product[]
+  products: Product[]
+  totalCount: number
+  hasMoreProducts: boolean
+  onLoadMore: () => void
   showFavoritesOnly: boolean
   onToggleFavoritesOnly: () => void
+  hasActiveFilters: boolean
+  onClearFilters: () => void
 }
 
 export function AllDeals({
-  filteredProducts,
+  products,
+  totalCount,
+  hasMoreProducts,
+  onLoadMore,
   showFavoritesOnly,
   onToggleFavoritesOnly,
+  hasActiveFilters,
+  onClearFilters,
   isFavorite,
   onToggleFavorite,
 }: AllDealsProps) {
@@ -57,9 +65,13 @@ export function AllDeals({
         <div className="section-head grid-head">
           <div>
             <h2 className="section-title">{t('allDealsTitle')}</h2>
-            <p className="section-subtitle">
-              {filteredProducts.length} {t('resultsCount')}
-            </p>
+            {totalCount > 0 && (
+              <p className="section-subtitle">
+                {t('showingProducts')
+                  .replace('{visible}', String(products.length))
+                  .replace('{total}', String(totalCount))}
+              </p>
+            )}
           </div>
           <button
             className={`favorites-filter ${showFavoritesOnly ? 'active' : ''}`}
@@ -70,17 +82,26 @@ export function AllDeals({
           </button>
         </div>
 
-        {filteredProducts.length > 0 ? (
-          <div className="product-grid">
-            {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                isFavorite={isFavorite(product.id)}
-                onToggleFavorite={onToggleFavorite}
-              />
-            ))}
-          </div>
+        {products.length > 0 ? (
+          <>
+            <div className="product-grid">
+              {products.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  isFavorite={isFavorite(product.id)}
+                  onToggleFavorite={onToggleFavorite}
+                />
+              ))}
+            </div>
+            {hasMoreProducts && (
+              <div className="load-more-wrap">
+                <button className="load-more" onClick={onLoadMore}>
+                  {t('loadMore')}
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="grid-empty">
             <span className="grid-empty-icon" aria-hidden="true">
@@ -88,6 +109,11 @@ export function AllDeals({
             </span>
             <h3>{t('emptyTitle')}</h3>
             <p>{showFavoritesOnly ? t('emptyFavorites') : t('emptySubtitle')}</p>
+            {hasActiveFilters && (
+              <button className="clear-filters" onClick={onClearFilters}>
+                {t('clearFilters')}
+              </button>
+            )}
           </div>
         )}
       </div>

@@ -1,0 +1,165 @@
+[
+  {
+    "id": "recommended",
+    "slug": "recommended",
+    "virtual": true,
+    "title": {
+      "en": "My Recommendations",
+      "pl": "Moje rekomendacje",
+      "ua": "Мої рекомендації"
+    }
+  },
+  {
+    "id": "beauty_health",
+    "slug": "beauty-health",
+    "title": {
+      "en": "Beauty & Health",
+      "pl": "Uroda i Zdrowie",
+      "ua": "Краса та Здоров'я"
+    }
+  },
+  {
+    "id": "sports_entertainment",
+    "slug": "sports-entertainment",
+    "title": {
+      "en": "Sports & Entertainment",
+      "pl": "Sport i Rozrywka",
+      "ua": "Спорт і Розваги"
+    }
+  },
+  {
+    "id": "pet_supplies",
+    "slug": "pet-supplies",
+    "title": {
+      "en": "Pet Supplies",
+      "pl": "Artykuły dla zwierząt",
+      "ua": "Товари для тварин"
+    }
+  },
+  {
+    "id": "furniture",
+    "slug": "furniture",
+    "title": {
+      "en": "Furniture",
+      "pl": "Meble",
+      "ua": "Меблі"
+    }
+  },
+  {
+    "id": "toys_games",
+    "slug": "toys-games",
+    "title": {
+      "en": "Toys & Games",
+      "pl": "Zabawki i Gry",
+      "ua": "Іграшки та Ігри"
+    }
+  },
+  {
+    "id": "luggage_bags",
+    "slug": "luggage-bags",
+    "title": {
+      "en": "Luggage & Bags",
+      "pl": "Bagaże i Torby",
+      "ua": "Багаж та Сумки"
+    }
+  },
+  {
+    "id": "home_improvement_lighting",
+    "slug": "home-improvement-lighting",
+    "title": {
+      "en": "Home Improvement & Lighting",
+      "pl": "Wykończenia wnętrz i oświetlenie",
+      "ua": "Покращення дому та освітлення"
+    }
+  },
+  {
+    "id": "automotive_motorcycle",
+    "slug": "automotive-motorcycle",
+    "title": {
+      "en": "Automotive & Motorcycle",
+      "pl": "Motoryzacja i Motocykle",
+      "ua": "Авто та Мотоцикли"
+    }
+  },
+  {
+    "id": "accessories",
+    "slug": "accessories",
+    "title": {
+      "en": "Jewelry, Watches & Accessories",
+      "pl": "Biżuteria, Zegarki i Akcesoria",
+      "ua": "Прикраси, Годинники та Аксесуари"
+    }
+  },
+  {
+    "id": "electronics",
+    "slug": "electronics",
+    "title": {
+      "en": "Electronics",
+      "pl": "Elektronika",
+      "ua": "Електроніка"
+    }
+  },
+  {
+    "id": "shoes",
+    "slug": "shoes",
+    "title": {
+      "en": "Shoes",
+      "pl": "Obuwie",
+      "ua": "Взуття"
+    }
+  },
+  {
+    "id": "hair_extensions_wigs",
+    "slug": "hair-extensions-wigs",
+    "title": {
+      "en": "Hair Extensions & Wigs",
+      "pl": "Włosy przedłużające i peruki",
+      "ua": "Накладне волосся та парики"
+    }
+  },
+  {
+    "id": "phones_telecommunications",
+    "slug": "phones-telecommunications",
+    "title": {
+      "en": "Phones & Telecommunications",
+      "pl": "Telefony i Telekomunikacja",
+      "ua": "Телефони та Телекомунікація"
+    }
+  },
+  {
+    "id": "babies_kids",
+    "slug": "babies-kids",
+    "title": {
+      "en": "Babies & Kids",
+      "pl": "Dzieci i Niemowlęta",
+      "ua": "Діти та Немовлята"
+    }
+  },
+  {
+    "id": "home_garden",
+    "slug": "home-garden",
+    "title": {
+      "en": "Home & Garden",
+      "pl": "Dom i Ogród",
+      "ua": "Дім і Сад"
+    }
+  },
+  {
+    "id": "womens_clothing",
+    "slug": "womens-clothing",
+    "title": {
+      "en": "Women's Clothing",
+      "pl": "Odzież damska",
+      "ua": "Жіночий одяг"
+    }
+  },
+  {
+    "id": "mens_clothing",
+    "slug": "mens-clothing",
+    "title": {
+      "en": "Men's Clothing",
+      "pl": "Odzież męska",
+      "ua": "Чоловічий одяг"
+    }
+  }
+]

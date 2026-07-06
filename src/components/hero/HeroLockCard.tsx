@@ -206,10 +206,14 @@ function DealCard({ product, isFavorite, onToggleFavorite }: DealCardProps) {
           </span>
           {product.store}
         </span>
-        <span className="lock-rating">
-          <span aria-hidden="true">★</span> {product.rating.toFixed(1)}
-          {product.ratingCount !== undefined && <em> ({product.ratingCount})</em>}
-        </span>
+        {product.rating !== undefined && (
+          <span className="lock-rating">
+            <span aria-hidden="true">★</span> {product.rating.toFixed(1)}
+            {product.ratingCount !== undefined && (
+              <em> ({product.ratingCount})</em>
+            )}
+          </span>
+        )}
       </div>
 
       <div className="lock-prices">

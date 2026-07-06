@@ -54,3 +54,46 @@
   color: var(--text-dim);
   max-width: 44ch;
 }
+
+.load-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.load-more {
+  padding: 13px 40px;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 650;
+  transition: background 0.2s;
+}
+
+.load-more:hover {
+  background: var(--accent-strong);
+}
+
+@media (max-width: 640px) {
+  .load-more {
+    width: 100%;
+  }
+}
+
+.clear-filters {
+  margin-top: 10px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-weight: 550;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.clear-filters:hover {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
